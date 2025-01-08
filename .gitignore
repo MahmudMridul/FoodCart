@@ -1,0 +1,7 @@
+food-cart-client/node_modules/*
+food-cart-client/.vscode/*
+
+FoodCartApi/.vs/*
+FoodCartApi/bin/*
+FoodCartApi/obj/*
+
