@@ -1,3 +1,5 @@
+import SignUp from "./pages/Signup";
+
 export default function App() {
-	return <div>App</div>;
+	return <SignUp/>;
 }
