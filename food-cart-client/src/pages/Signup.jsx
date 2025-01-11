@@ -21,8 +21,11 @@ import {
   isValidName,
   isValidUsername,
 } from "../utils/functions";
+import { useNavigate } from "react-router";
 
 export default function Signup() {
+  const navigate = useNavigate();
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [userName, setUsername] = useState("");
@@ -179,7 +182,9 @@ export default function Signup() {
     setPassword(v);
   }
 
-  function gotoSignin() {}
+  function gotoSignin() {
+    navigate("/");
+  }
   function handleSignup() {}
 
   return (

@@ -11,8 +11,11 @@ import {
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useState } from "react";
+import { useNavigate } from "react-router";
 
 export default function Signin() {
+  const navigate = useNavigate();
+
   const [usernameEmail, setUsernameEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -33,7 +36,9 @@ export default function Signin() {
 
   function handleSignin() {}
 
-  function gotoSignup() {}
+  function gotoSignup() {
+    navigate("/signup");
+  }
 
   return (
     <Box
