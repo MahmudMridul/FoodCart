@@ -180,7 +180,7 @@ export default function Signup() {
   }
 
   function gotoSignin() {}
-  function handleSignUp() {}
+  function handleSignup() {}
 
   return (
     <Box
@@ -316,7 +316,7 @@ export default function Signup() {
         <Button
           sx={{ width: 300, mb: 3 }}
           variant="outlined"
-          onClick={handleSignUp}
+          onClick={handleSignup}
           disabled={!validInput}
         >
           Sign Up
