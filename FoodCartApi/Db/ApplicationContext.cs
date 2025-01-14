@@ -6,9 +6,9 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace FoodCartApi.Db
 {
-    public class AppContext : IdentityDbContext<User>
+    public class ApplicationContext : IdentityDbContext<User>
     {
-        public AppContext(DbContextOptions<AppContext> options) : base(options) { }
+        public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options) { }
 
         public DbSet<RefreshToken> RefreshTokens { get; set; } = null!;
 
@@ -36,8 +36,7 @@ namespace FoodCartApi.Db
 
             builder.Entity<IdentityRole>().HasData(
                 new IdentityRole { Id = Guid.NewGuid().ToString(), Name = "User", NormalizedName = "USER" },
-                new IdentityRole { Id = Guid.NewGuid().ToString(), Name = "Admin", NormalizedName = "ADMIN" },
-                new IdentityRole { Id = Guid.NewGuid().ToString(), Name = "Manager", NormalizedName = "MANAGER" }
+                new IdentityRole { Id = Guid.NewGuid().ToString(), Name = "Admin", NormalizedName = "ADMIN" }
             );
         }
     }
