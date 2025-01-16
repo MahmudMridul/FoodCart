@@ -1,7 +1,6 @@
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import {
 	Box,
-	Button,
 	FormControl,
 	IconButton,
 	InputAdornment,
@@ -24,6 +23,7 @@ import {
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { signUp } from "../slices/appSlice";
+import CustomButton from "../components/CustomButton";
 
 export default function Signup() {
 	const dispatch = useDispatch();
@@ -330,14 +330,12 @@ export default function Signup() {
 					</>
 				) : null}
 
-				<Button
+				<CustomButton
+					label="Sign Up"
 					sx={{ width: 300, mb: 3 }}
-					variant="outlined"
 					onClick={handleSignup}
 					disabled={!validInput}
-				>
-					Sign Up
-				</Button>
+				/>
 
 				<Typography
 					sx={{ cursor: "pointer" }}

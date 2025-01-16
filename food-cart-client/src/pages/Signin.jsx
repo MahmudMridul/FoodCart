@@ -1,6 +1,5 @@
 import {
 	Box,
-	Button,
 	FormControl,
 	IconButton,
 	InputAdornment,
@@ -14,6 +13,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { signIn } from "../slices/appSlice";
+import CustomButton from "../components/CustomButton";
 
 export default function Signin() {
 	const dispatch = useDispatch();
@@ -64,7 +64,13 @@ export default function Signin() {
 				alignItems: "center",
 			}}
 		>
-			<Box sx={{ p: 2, display: "flex", flexDirection: "column" }}>
+			<Box
+				sx={{
+					p: 2,
+					display: "flex",
+					flexDirection: "column",
+				}}
+			>
 				<TextField
 					sx={{ mb: 3, width: 300, display: "inherit" }}
 					required
@@ -93,14 +99,12 @@ export default function Signin() {
 					/>
 				</FormControl>
 
-				<Button
+				<CustomButton
 					sx={{ width: 300, mb: 3 }}
-					variant="outlined"
+					label="Sign In"
 					onClick={handleSignin}
 					disabled={usernameEmail.length === 0 || password.length === 0}
-				>
-					Sign In
-				</Button>
+				/>
 
 				<Typography
 					sx={{ cursor: "pointer" }}

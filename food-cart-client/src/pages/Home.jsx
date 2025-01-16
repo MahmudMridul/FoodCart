@@ -5,7 +5,7 @@ export default function Home() {
 	return (
 		<>
 			<h4>{user.userName}</h4>
-			<FoodItem title="food title" desc="food description" />;
+			<FoodItem title="Biriyani" desc="Biriyani" />
 		</>
 	);
 }
