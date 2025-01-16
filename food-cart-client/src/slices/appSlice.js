@@ -77,7 +77,14 @@ export const appSlice = createSlice({
 			.addCase(signIn.pending, (state) => {
 				state.loading = true;
 			})
-			.addCase(signIn.fulfilled, (state) => {
+			.addCase(signIn.fulfilled, (state, action) => {
+				console.log(action.payload);
+				if (action.payload && action.payload.success) {
+					console.log(action.payload.data);
+					localStorage.setItem("user", JSON.stringify(action.payload.data));
+				}
+				const user = localStorage.getItem("user");
+				console.log(user);
 				state.loading = false;
 			})
 			.addCase(signIn.rejected, (state) => {

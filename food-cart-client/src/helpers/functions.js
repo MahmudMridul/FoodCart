@@ -1,4 +1,4 @@
-// import { jwtDecode } from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 
 export function isValidName(name) {
 	// Check if the name contains only alphabets and spaces
@@ -104,10 +104,10 @@ export async function apiCall({ url, method, payload, auth, cred }) {
 	}
 }
 
-// export function isTokenExpired(token) {
-// 	if (!token) return true;
-// 	const decoded = jwtDecode(token);
-// 	const now = Date.now().valueOf() / 1000;
-// 	console.log("expired", decoded.exp < now);
-// 	return decoded.exp < now;
-// }
+export function isTokenExpired(token) {
+	if (!token) return true;
+	const decoded = jwtDecode(token);
+	const now = Date.now().valueOf() / 1000;
+	console.log("expired", decoded.exp < now);
+	return decoded.exp < now;
+}
