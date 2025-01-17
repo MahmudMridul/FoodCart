@@ -22,7 +22,7 @@ export default function FoodItem({ title, desc }) {
 		<Card sx={{ maxWidth: 345 }}>
 			<CardMedia
 				sx={{ height: 140 }}
-				image="/assets/images/biriyani.jpg" // path to biriyani.jpg
+				image="D:/Projects/FoodCart/FoodImages/biriyani.jpg" // path to biriyani.jpg
 				title="green iguana"
 			/>
 			<CardContent>
