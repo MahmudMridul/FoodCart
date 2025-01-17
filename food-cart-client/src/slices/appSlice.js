@@ -31,7 +31,8 @@ export const signIn = createAsyncThunk("auth/signin", async (payload) => {
 
 export const signOut = createAsyncThunk("auth/signOut", async () => {
 	try {
-		const auth = `Bearer ${localStorage.getItem("accessToken")}`;
+		const user = JSON.parse(localStorage.getItem("user"));
+		const auth = `Bearer ${user.accessToken}`;
 		const data = await apiCall({
 			url: signout,
 			method: "delete",
@@ -78,13 +79,9 @@ export const appSlice = createSlice({
 				state.loading = true;
 			})
 			.addCase(signIn.fulfilled, (state, action) => {
-				console.log(action.payload);
 				if (action.payload && action.payload.success) {
-					console.log(action.payload.data);
 					localStorage.setItem("user", JSON.stringify(action.payload.data));
 				}
-				const user = localStorage.getItem("user");
-				console.log(user);
 				state.loading = false;
 			})
 			.addCase(signIn.rejected, (state) => {
@@ -95,8 +92,10 @@ export const appSlice = createSlice({
 				state.loading = true;
 			})
 			.addCase(signOut.fulfilled, (state, action) => {
+				if (action.payload && action.payload.success) {
+					localStorage.removeItem("user");
+				}
 				state.loading = false;
-				console.log(action.payload);
 			})
 			.addCase(signOut.rejected, (state) => {
 				state.loading = false;
