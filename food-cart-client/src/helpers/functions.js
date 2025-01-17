@@ -108,6 +108,5 @@ export function isTokenExpired(token) {
 	if (!token) return true;
 	const decoded = jwtDecode(token);
 	const now = Date.now().valueOf() / 1000;
-	console.log("expired", decoded.exp < now);
 	return decoded.exp < now;
 }

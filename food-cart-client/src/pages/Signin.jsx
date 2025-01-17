@@ -44,7 +44,6 @@ export default function Signin() {
 		};
 		dispatch(signIn(payload)).then((res) => {
 			if (res.payload.success) {
-				console.log(res.payload);
 				navigate("/home");
 			}
 		});

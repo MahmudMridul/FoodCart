@@ -4,6 +4,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
 	loading: false,
+	open: false,
 };
 
 export const signUp = createAsyncThunk("auth/signup", async (payload) => {
@@ -61,6 +62,9 @@ export const appSlice = createSlice({
 		setLoading(state, action) {
 			state.loading = action.payload;
 		},
+		setOpen(state, action) {
+			state.open = action.payload;
+		},
 	},
 	extraReducers: (builder) => {
 		builder
@@ -103,5 +107,5 @@ export const appSlice = createSlice({
 	},
 });
 
-export const { set, setLoading } = appSlice.actions;
+export const { set, setLoading, setOpen } = appSlice.actions;
 export default appSlice.reducer;
