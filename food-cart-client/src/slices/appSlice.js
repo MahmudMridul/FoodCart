@@ -1,10 +1,12 @@
-import { signup, signin, signout } from "../helpers/apis";
+import { signup, signin, signout, foodItems } from "../helpers/apis";
 import { apiCall } from "../helpers/functions";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
 	loading: false,
 	open: false,
+
+	foodItems: [],
 };
 
 export const signUp = createAsyncThunk("auth/signup", async (payload) => {
@@ -43,6 +45,22 @@ export const signOut = createAsyncThunk("auth/signOut", async () => {
 		return data;
 	} catch (err) {
 		console.error("auth/signOut", err);
+	}
+});
+
+export const getFoodItems = createAsyncThunk("home/foodItems", async () => {
+	try {
+		const user = JSON.parse(localStorage.getItem("user"));
+		const auth = `Bearer ${user.accessToken}`;
+		const data = await apiCall({
+			url: foodItems,
+			method: "get",
+			auth,
+			cred: "include",
+		});
+		return data;
+	} catch (err) {
+		console.error("home/foodItems", err);
 	}
 });
 
@@ -102,6 +120,19 @@ export const appSlice = createSlice({
 				state.loading = false;
 			})
 			.addCase(signOut.rejected, (state) => {
+				state.loading = false;
+			})
+
+			.addCase(getFoodItems.pending, (state) => {
+				state.loading = true;
+			})
+			.addCase(getFoodItems.fulfilled, (state, action) => {
+				if (action.payload && action.payload.success) {
+					state.foodItems = action.payload.data;
+				}
+				state.loading = false;
+			})
+			.addCase(getFoodItems.rejected, (state) => {
 				state.loading = false;
 			});
 	},

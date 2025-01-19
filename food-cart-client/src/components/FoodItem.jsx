@@ -11,20 +11,17 @@ import { useDispatch } from "react-redux";
 FoodItem.propTypes = {
 	title: PropTypes.string.isRequired,
 	desc: PropTypes.string.isRequired,
+	url: PropTypes.string.isRequired,
 };
 
-export default function FoodItem({ title, desc }) {
+export default function FoodItem({ title, desc, url }) {
 	const dispatch = useDispatch();
 	function handleDetail() {
 		dispatch(setOpen(true));
 	}
 	return (
 		<Card sx={{ maxWidth: 345 }}>
-			<CardMedia
-				sx={{ height: 140 }}
-				image="https://mahmudmridul.github.io/FoodCartImages/biriyani.jpg" // path to biriyani.jpg
-				title="green iguana"
-			/>
+			<CardMedia sx={{ height: 140 }} image={url} title="green iguana" />
 			<CardContent>
 				<Typography gutterBottom variant="h5" component="div">
 					{title}
