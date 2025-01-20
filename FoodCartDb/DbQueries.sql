@@ -18,3 +18,7 @@ from FoodItems;
 insert into FoodItems (Name, Description, Price, ImageUrl) values 
 ('Biriyani', 'Chicken biriyani', 200, 'biriyani.jpg'),
 ('Burger', 'Chicken burger', 200, 'burger.jpg');
+
+update FoodItems
+set Description = 'Juicy grilled chicken patty, fresh lettuce, tomato, and creamy mayo, all tucked in a soft sesame bun.' 
+where Id = 2;

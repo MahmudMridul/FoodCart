@@ -56,8 +56,8 @@ export default function Signin() {
 	return (
 		<Box
 			sx={{
-				height: "97vh",
-				width: "97vw",
+				minHeight: "97vh",
+				width: "100%",
 				display: "flex",
 				justifyContent: "center",
 				alignItems: "center",

@@ -5,7 +5,7 @@ import App from "./App.jsx";
 import { Provider } from "react-redux";
 import { store } from "./store.js";
 import LoadingScreen from "./components/LoadingScreen.jsx";
-import { ThemeProvider } from "@mui/material";
+import { Container, ThemeProvider } from "@mui/material";
 import { theme } from "./theme.js";
 import DetailModal from "./components/DetailModal.jsx";
 
@@ -15,7 +15,9 @@ createRoot(document.getElementById("root")).render(
 			<ThemeProvider theme={theme}>
 				<LoadingScreen />
 				<DetailModal />
-				<App />
+				<Container maxWidth="xxxl" disableGutters>
+					<App />
+				</Container>
 			</ThemeProvider>
 		</Provider>
 	</StrictMode>

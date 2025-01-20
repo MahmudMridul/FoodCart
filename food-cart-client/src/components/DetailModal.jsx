@@ -18,7 +18,8 @@ const style = {
 
 export default function DetailModal() {
 	const dispatch = useDispatch();
-	const open = useSelector((store) => store.app.open);
+	const state = useSelector((store) => store.app);
+	const { open, modalItem } = state;
 	function handleClose() {
 		dispatch(setOpen(false));
 	}
@@ -27,10 +28,14 @@ export default function DetailModal() {
 		<div>
 			<Modal open={open} onClose={handleClose}>
 				<Box sx={style}>
-					<Typography variant="h6">Text in a modal</Typography>
-					<Typography sx={{ mt: 2 }}>
-						Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+					<img
+						src={modalItem?.url}
+						style={{ width: "100%", height: "100%", marginBottom: 10 }}
+					/>
+					<Typography variant="h5" gutterBottom>
+						{modalItem?.title}
 					</Typography>
+					<Typography variant="body2">{modalItem?.desc}</Typography>
 				</Box>
 			</Modal>
 		</div>

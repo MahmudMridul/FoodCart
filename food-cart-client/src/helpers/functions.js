@@ -110,3 +110,11 @@ export function isTokenExpired(token) {
 	const now = Date.now().valueOf() / 1000;
 	return decoded.exp < now;
 }
+
+export function trim(str) {
+	const maxCharToShow = 40;
+	if (str.length > maxCharToShow) {
+		return str.substring(0, maxCharToShow) + "...";
+	}
+	return str;
+}

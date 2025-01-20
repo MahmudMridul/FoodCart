@@ -5,8 +5,9 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import PropTypes from "prop-types";
 import CustomButton from "./CustomButton";
-import { setOpen } from "../slices/appSlice";
+import { set, setOpen } from "../slices/appSlice";
 import { useDispatch } from "react-redux";
+import { trim } from "../helpers/functions";
 
 FoodItem.propTypes = {
 	title: PropTypes.string.isRequired,
@@ -17,17 +18,19 @@ FoodItem.propTypes = {
 export default function FoodItem({ title, desc, url }) {
 	const dispatch = useDispatch();
 	function handleDetail() {
+		const item = { title, desc, url };
+		dispatch(set({ key: "modalItem", value: item }));
 		dispatch(setOpen(true));
 	}
 	return (
-		<Card sx={{ maxWidth: 345 }}>
-			<CardMedia sx={{ height: 140 }} image={url} title="green iguana" />
+		<Card sx={{ maxWidth: 350 }}>
+			<CardMedia sx={{ height: 150 }} image={url} title="green iguana" />
 			<CardContent>
 				<Typography gutterBottom variant="h5" component="div">
 					{title}
 				</Typography>
-				<Typography variant="body2" sx={{ color: "text.secondary" }}>
-					{desc}
+				<Typography variant="body1" sx={{ color: "text.secondary" }}>
+					{trim(desc)}
 				</Typography>
 			</CardContent>
 			<CardActions>

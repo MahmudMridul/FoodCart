@@ -7,6 +7,7 @@ const initialState = {
 	open: false,
 
 	foodItems: [],
+	modalItem: null,
 };
 
 export const signUp = createAsyncThunk("auth/signup", async (payload) => {
@@ -68,14 +69,9 @@ export const appSlice = createSlice({
 	name: "app",
 	initialState,
 	reducers: {
-		set: {
-			prepare(key, value) {
-				return { key, value };
-			},
-			reducer(action, state) {
-				const { key, value } = action.payload;
-				state[key] = value;
-			},
+		set(state, action) {
+			const { key, value } = action.payload;
+			state[key] = value;
 		},
 		setLoading(state, action) {
 			state.loading = action.payload;
