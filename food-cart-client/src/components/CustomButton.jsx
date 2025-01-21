@@ -5,7 +5,6 @@ CustomButton.propTypes = {
 	label: PropType.string.isRequired,
 	size: PropType.string,
 	variant: PropType.string,
-	color: PropType.string,
 	onClick: PropType.func.isRequired,
 	disabled: PropType.bool,
 	sx: PropType.object,
@@ -17,7 +16,6 @@ export default function CustomButton({
 	label,
 	size = "medium",
 	variant = "outlined",
-	color = "primary",
 	onClick,
 	disabled,
 	sx,
@@ -28,10 +26,19 @@ export default function CustomButton({
 		<Button
 			size={size}
 			variant={variant}
-			color={color}
 			onClick={onClick}
 			disabled={disabled}
-			sx={{ fontWeight: "bold", textTransform: "none", ...sx }}
+			sx={{
+				backgroundColor: "black.main",
+				color: "white.main",
+				fontWeight: "bold",
+				textTransform: "none",
+				border: 0,
+				"&:hover": {
+					backgroundColor: "black.light",
+				},
+				...sx,
+			}}
 			startIcon={startIcon}
 			endIcon={endIcon}
 		>

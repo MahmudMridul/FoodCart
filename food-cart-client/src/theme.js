@@ -16,7 +16,7 @@ export const theme = createTheme({
 	palette: {
 		black: {
 			main: grey[900],
-			light: grey[800],
+			light: grey[700],
 		},
 		white: {
 			main: grey[50],
