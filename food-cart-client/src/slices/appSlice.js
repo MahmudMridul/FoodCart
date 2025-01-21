@@ -8,6 +8,8 @@ const initialState = {
 
 	foodItems: [],
 	modalItem: null,
+	cartItems: [],
+	cartItemCount: 0,
 };
 
 export const signUp = createAsyncThunk("auth/signup", async (payload) => {
@@ -73,11 +75,25 @@ export const appSlice = createSlice({
 			const { key, value } = action.payload;
 			state[key] = value;
 		},
+
 		setLoading(state, action) {
 			state.loading = action.payload;
 		},
+
 		setOpen(state, action) {
 			state.open = action.payload;
+		},
+
+		pushToCart(state, action) {
+			state.cartItems.push(action.payload);
+		},
+
+		setCartItemCount(state) {
+			let count = 0;
+			state.cartItems.forEach((item) => {
+				count += item.quantity;
+			});
+			state.cartItemCount = count;
 		},
 	},
 	extraReducers: (builder) => {
@@ -134,5 +150,6 @@ export const appSlice = createSlice({
 	},
 });
 
-export const { set, setLoading, setOpen } = appSlice.actions;
+export const { set, setLoading, setOpen, pushToCart, setCartItemCount } =
+	appSlice.actions;
 export default appSlice.reducer;

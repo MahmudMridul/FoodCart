@@ -28,7 +28,7 @@ export default function NavBar() {
 				px: 1.5,
 				py: 1,
 				borderRadius: 2,
-				backgroundColor: "black.light",
+				backgroundColor: "black.main",
 				color: "white.main",
 				display: "flex",
 				justifyContent: "flex-end",

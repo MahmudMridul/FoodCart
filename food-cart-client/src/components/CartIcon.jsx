@@ -2,7 +2,8 @@ import { IconButton } from "@mui/material";
 import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
 import { styled } from "@mui/material/styles";
 import Badge, { badgeClasses } from "@mui/material/Badge";
-import { useState } from "react";
+import { useNavigate } from "react-router";
+import { useSelector } from "react-redux";
 
 const CartBadge = styled(Badge)`
 	& .${badgeClasses.badge} {
@@ -12,12 +13,18 @@ const CartBadge = styled(Badge)`
 `;
 
 export default function CartIcon() {
-	const [itemCount, setItemCount] = useState(0);
+	const navigate = useNavigate();
+	const cartItemCount = useSelector((store) => store.app.cartItemCount);
+
+	function gotoCartItems() {
+		navigate("cart");
+	}
+
 	return (
-		<IconButton sx={{ mx: 1 }}>
+		<IconButton sx={{ mx: 1 }} onClick={gotoCartItems}>
 			<ShoppingCartRoundedIcon sx={{ color: "white.main" }} />
 			<CartBadge
-				badgeContent={itemCount}
+				badgeContent={cartItemCount}
 				sx={{ color: "white.main" }}
 				overlap="circular"
 			/>
