@@ -186,7 +186,7 @@ export default function Signup() {
 	}
 
 	function gotoSignin() {
-		navigate("/");
+		navigate("/signin");
 	}
 	function handleSignup() {
 		const payload = {
