@@ -118,3 +118,19 @@ export function trim(str) {
 	}
 	return str;
 }
+
+export function setAppMaxWidth() {
+	const browserWidth = window.innerWidth;
+	switch (true) {
+		case browserWidth > 2100:
+			return "xxl";
+		case browserWidth > 1800:
+			return "xl";
+		case browserWidth > 1500:
+			return "lg";
+		case browserWidth > 1200:
+			return "md";
+		default:
+			return "md";
+	}
+}
