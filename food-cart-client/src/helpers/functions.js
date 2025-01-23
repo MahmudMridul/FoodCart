@@ -52,17 +52,19 @@ export function hasSpace(str) {
 
 /**
  * @param {string} method - HTTP method
- * @param {string} auth - Authorization token
  * @param {string} cred - Credentials
  * @param {object} payload - Payload
  */
-function fetchOps(method, auth, cred, payload) {
+function fetchOps(method, cred, payload) {
 	const headers = {
 		"Content-Type": "application/json",
 		Accept: "application/json",
 	};
 
-	if (auth) headers.Authorization = auth;
+	const user = JSON.parse(localStorage.getItem("user"));
+	const auth = `Bearer ${user?.accessToken}`;
+
+	if (auth && user) headers.Authorization = auth;
 
 	const options = {
 		method: method.toUpperCase(),
@@ -77,7 +79,7 @@ function fetchOps(method, auth, cred, payload) {
 }
 
 /**
- * Makes an API request with error handling
+ * Makes an API request
  * @param {string} url - The endpoint URL
  * @param {string} method - HTTP method
  * @param {object|null} payload - Request body
@@ -85,9 +87,10 @@ function fetchOps(method, auth, cred, payload) {
  * @param {string|null} cred - Credentials mode (optional)
  * @returns {Promise<any>} Parsed response data
  */
-export async function apiCall({ url, method, payload, auth, cred }) {
+export async function apiCall({ url, method, payload, cred }) {
 	try {
-		const options = fetchOps(method, auth, cred, payload);
+		const options = fetchOps(method, cred, payload);
+		console.log(options);
 		const response = await fetch(url, options);
 
 		if (!response.ok) {

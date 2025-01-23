@@ -15,6 +15,7 @@ export default function Cart() {
 								desc={item.desc}
 								price={item.price}
 								url={item.url}
+								quantity={item.quantity}
 							/>
 						</Grid2>
 					);
