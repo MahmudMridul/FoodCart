@@ -19,6 +19,10 @@ export default function NavBar() {
 		});
 	}
 
+	function gotoHome() {
+		navigate("/");
+	}
+
 	return (
 		<Box
 			sx={{
@@ -35,6 +39,13 @@ export default function NavBar() {
 				alignItems: "center",
 			}}
 		>
+			<Typography
+				sx={{ mx: 2, cursor: "pointer" }}
+				variant="subtitle1"
+				onClick={gotoHome}
+			>
+				Home
+			</Typography>
 			<Typography sx={{ mx: 2 }} variant="subtitle1">
 				{user.userName}
 			</Typography>
