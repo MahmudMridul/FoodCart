@@ -10,14 +10,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { trim } from "../helpers/functions";
 import { useState } from "react";
 
-FoodItem.propTypes = {
+CartItem.propTypes = {
 	title: PropTypes.string.isRequired,
 	desc: PropTypes.string.isRequired,
 	url: PropTypes.string.isRequired,
 	price: PropTypes.number.isRequired,
 };
 
-export default function FoodItem({ title, desc, url, price }) {
+export default function CartItem({ title, desc, url, price }) {
 	const dispatch = useDispatch();
 	const { cartItems } = useSelector((state) => state.app);
 	const [inCart, setInCart] = useState(false);

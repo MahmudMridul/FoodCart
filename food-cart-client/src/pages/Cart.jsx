@@ -1,6 +1,6 @@
 import { Grid2 } from "@mui/material";
 import { useSelector } from "react-redux";
-import FoodItem from "../components/FoodItem";
+import CartItem from "../components/CartItem";
 
 export default function Cart() {
 	const cartItems = useSelector((state) => state.app.cartItems);
@@ -10,12 +10,11 @@ export default function Cart() {
 				cartItems.map((item, index) => {
 					return (
 						<Grid2 key={index} item xs={12}>
-							<FoodItem
+							<CartItem
 								title={item.title}
 								desc={item.desc}
 								price={item.price}
 								url={item.url}
-								inCart={true}
 							/>
 						</Grid2>
 					);
