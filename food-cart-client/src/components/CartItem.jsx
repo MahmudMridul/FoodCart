@@ -11,6 +11,7 @@ import { trim } from "../helpers/functions";
 import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
 import RemoveCircleOutlineRoundedIcon from "@mui/icons-material/RemoveCircleOutlineRounded";
 import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
+import RemoveShoppingCartRoundedIcon from "@mui/icons-material/RemoveShoppingCartRounded";
 import { Box } from "@mui/material";
 
 CartItem.propTypes = {
@@ -76,6 +77,12 @@ export default function CartItem({ title, desc, url, price, quantity }) {
 		}
 	}
 
+	function discardFromCart() {
+		const updatedCartItems = cartItems.filter((i) => i.title !== title);
+		dispatch(set({ key: "cartItems", value: updatedCartItems }));
+		dispatch(setCartItemCount());
+	}
+
 	return (
 		<Card sx={{ minWidth: 350 }}>
 			<CardMedia sx={{ height: 150 }} image={url} title={title} />
@@ -108,6 +115,11 @@ export default function CartItem({ title, desc, url, price, quantity }) {
 					startIcon={<RemoveCircleOutlineRoundedIcon />}
 					label={"Remove"}
 					onClick={removeFromCart}
+				/>
+				<CustomButton
+					startIcon={<RemoveShoppingCartRoundedIcon />}
+					label={"Discard"}
+					onClick={discardFromCart}
 				/>
 			</CardActions>
 		</Card>
