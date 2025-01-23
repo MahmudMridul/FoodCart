@@ -8,7 +8,6 @@ import CustomButton from "./CustomButton";
 import { pushToCart, set, setCartItemCount, setOpen } from "../slices/appSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { trim } from "../helpers/functions";
-import { useState } from "react";
 
 FoodItem.propTypes = {
 	title: PropTypes.string.isRequired,
@@ -20,7 +19,6 @@ FoodItem.propTypes = {
 export default function FoodItem({ title, desc, url, price }) {
 	const dispatch = useDispatch();
 	const { cartItems } = useSelector((state) => state.app);
-	const [inCart, setInCart] = useState(false);
 
 	function handleDetail() {
 		const item = { title, desc, url, price };
@@ -28,8 +26,16 @@ export default function FoodItem({ title, desc, url, price }) {
 		dispatch(setOpen(true));
 	}
 
+	function isItemInCart() {
+		let item = cartItems.find((i) => i.title === title);
+		if (item) {
+			return true;
+		}
+		return false;
+	}
+
 	function addToCart() {
-		if (inCart) {
+		if (isItemInCart()) {
 			return;
 		}
 		let item = cartItems.find((i) => i.title === title);
@@ -37,48 +43,8 @@ export default function FoodItem({ title, desc, url, price }) {
 			item = { title, desc, url, price, quantity: 1 };
 			dispatch(pushToCart(item));
 			dispatch(setCartItemCount());
-			setInCart(true);
 		}
-
-		// const updatedCartItems = cartItems.map((i) => {
-		// 	if (i.title === title) {
-		// 		return {
-		// 			...i,
-		// 			quantity: i.quantity + 1,
-		// 		};
-		// 	} else {
-		// 		return i;
-		// 	}
-		// });
-		// dispatch(set({ key: "cartItems", value: updatedCartItems }));
 	}
-
-	// function removeFromCart() {
-	// 	let item = cartItems.find((i) => i.title === title);
-	// 	if (item) {
-	// 		const updatedCartItems = cartItems.map((i) => {
-	// 			if (i.title === title) {
-	// 				if (i.quantity <= 1) {
-	// 					setCount(0);
-	// 					return {
-	// 						...i,
-	// 						quantity: 0,
-	// 					};
-	// 				} else {
-	// 					setCount(count - 1);
-	// 					return {
-	// 						...i,
-	// 						quantity: i.quantity - 1,
-	// 					};
-	// 				}
-	// 			} else {
-	// 				return i;
-	// 			}
-	// 		});
-	// 		dispatch(set({ key: "cartItems", value: updatedCartItems }));
-	// 		dispatch(setCartItemCount());
-	// 	}
-	// }
 
 	return (
 		<Card sx={{ minWidth: 350 }}>
@@ -98,7 +64,7 @@ export default function FoodItem({ title, desc, url, price }) {
 			<CardActions>
 				<CustomButton label="Details" onClick={handleDetail} />
 				<CustomButton
-					label={inCart ? "In Cart" : "Add to Cart"}
+					label={isItemInCart() ? "In Cart" : "Add to Cart"}
 					onClick={addToCart}
 				/>
 			</CardActions>
