@@ -37,12 +37,9 @@ export const signIn = createAsyncThunk("auth/signin", async (payload) => {
 
 export const signOut = createAsyncThunk("auth/signOut", async () => {
 	try {
-		const user = JSON.parse(localStorage.getItem("user"));
-		const auth = `Bearer ${user.accessToken}`;
 		const data = await apiCall({
 			url: signout,
 			method: "delete",
-			auth,
 			cred: "include",
 		});
 		return data;
@@ -53,12 +50,9 @@ export const signOut = createAsyncThunk("auth/signOut", async () => {
 
 export const getFoodItems = createAsyncThunk("home/foodItems", async () => {
 	try {
-		const user = JSON.parse(localStorage.getItem("user"));
-		const auth = `Bearer ${user.accessToken}`;
 		const data = await apiCall({
 			url: foodItems,
 			method: "get",
-			auth,
 			cred: "include",
 		});
 		return data;
