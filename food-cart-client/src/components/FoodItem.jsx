@@ -40,7 +40,7 @@ export default function FoodItem({ title, desc, url, price }) {
 		}
 		let item = cartItems.find((i) => i.title === title);
 		if (!item) {
-			item = { title, desc, url, price, quantity: 1 };
+			item = { title, desc, url, price, charity: false, quantity: 1 };
 			dispatch(pushToCart(item));
 			dispatch(setCartItemCount());
 		}
@@ -51,7 +51,14 @@ export default function FoodItem({ title, desc, url, price }) {
 			<CardMedia sx={{ height: 150 }} image={url} title={title} />
 			<CardContent>
 				<Typography
-					sx={{ fontWeight: "bold" }}
+					sx={{
+						fontWeight: "bold",
+						"&:hover": {
+							cursor: "pointer",
+							textDecoration: "underline",
+						},
+					}}
+					onClick={handleDetail}
 					gutterBottom
 					variant="h5"
 					component="div"
@@ -62,7 +69,6 @@ export default function FoodItem({ title, desc, url, price }) {
 				<Typography variant="h6">{`BDT ${price}`}</Typography>
 			</CardContent>
 			<CardActions>
-				<CustomButton label="Details" onClick={handleDetail} />
 				<CustomButton
 					label={isItemInCart() ? "In Cart" : "Add to Cart"}
 					onClick={addToCart}

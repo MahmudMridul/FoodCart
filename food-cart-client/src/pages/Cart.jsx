@@ -17,6 +17,7 @@ export default function Cart() {
 										title={item.title}
 										desc={item.desc}
 										price={item.price}
+										charity={item.charity}
 										url={item.url}
 										quantity={item.quantity}
 									/>

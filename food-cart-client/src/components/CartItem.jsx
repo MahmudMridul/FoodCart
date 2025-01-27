@@ -12,17 +12,25 @@ import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRou
 import RemoveCircleOutlineRoundedIcon from "@mui/icons-material/RemoveCircleOutlineRounded";
 import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
 import RemoveShoppingCartRoundedIcon from "@mui/icons-material/RemoveShoppingCartRounded";
-import { Box } from "@mui/material";
+import { Box, Checkbox, FormControlLabel } from "@mui/material";
 
 CartItem.propTypes = {
 	title: PropTypes.string.isRequired,
 	desc: PropTypes.string.isRequired,
 	url: PropTypes.string.isRequired,
 	price: PropTypes.number.isRequired,
+	charity: PropTypes.bool.isRequired,
 	quantity: PropTypes.number.isRequired,
 };
 
-export default function CartItem({ title, desc, url, price, quantity }) {
+export default function CartItem({
+	title,
+	desc,
+	url,
+	price,
+	charity,
+	quantity,
+}) {
 	const dispatch = useDispatch();
 	const { cartItems } = useSelector((state) => state.app);
 
@@ -31,6 +39,8 @@ export default function CartItem({ title, desc, url, price, quantity }) {
 		dispatch(set({ key: "modalItem", value: item }));
 		dispatch(setOpen(true));
 	}
+
+	console.log(title, charity);
 
 	function addToCart() {
 		let item = cartItems.find((i) => i.title === title);
@@ -47,7 +57,7 @@ export default function CartItem({ title, desc, url, price, quantity }) {
 			});
 			dispatch(set({ key: "cartItems", value: updatedCartItems }));
 		} else {
-			item = { title, desc, url, price, quantity: 1 };
+			item = { title, desc, url, price, charity: false, quantity: 1 };
 			dispatch(pushToCart(item));
 		}
 		dispatch(setCartItemCount());
@@ -83,12 +93,33 @@ export default function CartItem({ title, desc, url, price, quantity }) {
 		dispatch(setCartItemCount());
 	}
 
+	function handleCheckbox() {
+		const updatedCartItems = cartItems.map((i) => {
+			if (i.title === title) {
+				return {
+					...i,
+					charity: !i.charity,
+				};
+			} else {
+				return i;
+			}
+		});
+		dispatch(set({ key: "cartItems", value: updatedCartItems }));
+	}
+
 	return (
 		<Card sx={{ minWidth: 350 }}>
 			<CardMedia sx={{ height: 150 }} image={url} title={title} />
 			<CardContent>
 				<Typography
-					sx={{ fontWeight: "bold" }}
+					sx={{
+						fontWeight: "bold",
+						"&:hover": {
+							cursor: "pointer",
+							textDecoration: "underline",
+						},
+					}}
+					onClick={handleDetail}
 					gutterBottom
 					variant="h5"
 					component="div"
@@ -103,9 +134,18 @@ export default function CartItem({ title, desc, url, price, quantity }) {
 						{quantity}
 					</Typography>
 				</Box>
+				<FormControlLabel
+					control={
+						<Checkbox
+							sx={{ color: "black.main" }}
+							checked={charity}
+							onChange={handleCheckbox}
+						/>
+					}
+					label="For Charity"
+				/>
 			</CardContent>
 			<CardActions>
-				<CustomButton label="Details" onClick={handleDetail} />
 				<CustomButton
 					startIcon={<AddCircleOutlineRoundedIcon />}
 					label={"Add"}

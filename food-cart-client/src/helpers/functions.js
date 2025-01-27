@@ -90,7 +90,6 @@ function fetchOps(method, cred, payload) {
 export async function apiCall({ url, method, payload, cred }) {
 	try {
 		const options = fetchOps(method, cred, payload);
-		console.log(options);
 		const response = await fetch(url, options);
 
 		if (!response.ok) {
@@ -115,7 +114,7 @@ export function isTokenExpired(token) {
 }
 
 export function trim(str) {
-	const maxCharToShow = 40;
+	const maxCharToShow = 55;
 	if (str.length > maxCharToShow) {
 		return str.substring(0, maxCharToShow) + "...";
 	}

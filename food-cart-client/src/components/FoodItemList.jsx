@@ -20,7 +20,7 @@ export default function FoodItemList() {
 			{foodItems.length > 0 &&
 				foodItems.map((item, index) => {
 					return (
-						<Grid2 key={index} item xs={3}>
+						<Grid2 key={index} item size={3}>
 							<FoodItem
 								title={item.name}
 								desc={item.description}
