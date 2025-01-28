@@ -5,3 +5,7 @@ FoodCartApi/.vs/*
 FoodCartApi/bin/*
 FoodCartApi/obj/*
 
+FoodCartApi.Tests/.vs/*
+FoodCartApi.Tests/bin/*
+FoodCartApi.Tests/obj/*
+
