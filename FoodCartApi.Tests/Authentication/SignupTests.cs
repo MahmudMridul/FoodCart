@@ -2,15 +2,14 @@
 using FoodCartApi.Models.Dtos;
 using Microsoft.AspNetCore.Mvc.Testing;
 using System.Net.Http.Json;
-using Xunit;
 
 namespace FoodCartApi.Tests.Authentication
 {
-    public class AuthControllerTests : IClassFixture<WebApplicationFactory<Program>>
+    public class SignupTests : IClassFixture<WebApplicationFactory<Program>>
     {
         private readonly HttpClient _client;
 
-        public AuthControllerTests(WebApplicationFactory<Program> factory)
+        public SignupTests(WebApplicationFactory<Program> factory)
         {
             _client = factory.CreateClient();
         }
