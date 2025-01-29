@@ -4,6 +4,9 @@ go
 select *
 from Users;
 
+delete from Users 
+where UserName = 'UserThree_3';
+
 select * 
 from Roles;
 
