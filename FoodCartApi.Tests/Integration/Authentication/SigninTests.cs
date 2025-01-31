@@ -1,10 +1,9 @@
-﻿
-using FoodCartApi.Models;
+﻿using FoodCartApi.Models;
 using FoodCartApi.Models.Dtos;
 using Microsoft.AspNetCore.Mvc.Testing;
 using System.Net.Http.Json;
 
-namespace FoodCartApi.Tests.Authentication
+namespace FoodCartApi.Tests.Integration.Authentication
 {
     public class SigninTests : IClassFixture<WebApplicationFactory<Program>>
     {
