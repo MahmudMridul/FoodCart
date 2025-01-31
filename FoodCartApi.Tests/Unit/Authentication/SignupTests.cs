@@ -23,13 +23,11 @@ namespace FoodCartApi.Tests.Unit.Authentication
 
         public SignupTests()
         {
-            // Setup real DbContext with in-memory database
             var options = new DbContextOptionsBuilder<ApplicationContext>()
                 .UseInMemoryDatabase(databaseName: "TestDb")
                 .Options;
             _context = new ApplicationContext(options);
 
-            // Setup UserManager mock with minimum required services
             var userStoreMock = new Mock<IUserStore<User>>();
             _mockUserManager = new Mock<UserManager<User>>(
                 userStoreMock.Object,
@@ -43,11 +41,10 @@ namespace FoodCartApi.Tests.Unit.Authentication
                 null
             );
 
-            // Mock the Users property to handle the query directly
+            // user property mock
             _mockUserManager.Setup(x => x.Users)
                 .Returns(_context.Users);
 
-            // Setup SignInManager mock
             var contextAccessorMock = new Mock<IHttpContextAccessor>();
             var userPrincipalFactoryMock = new Mock<IUserClaimsPrincipalFactory<User>>();
             _mockSignInManager = new Mock<SignInManager<User>>(
@@ -62,7 +59,6 @@ namespace FoodCartApi.Tests.Unit.Authentication
 
             _mockConfig = new Mock<IConfiguration>();
 
-            // Initialize controller
             _controller = new AuthController(
                 _context,
                 _mockUserManager.Object,
@@ -164,7 +160,6 @@ namespace FoodCartApi.Tests.Unit.Authentication
                 LastName = "User"
             };
 
-            // Setup ModelState validation error
             _controller.ModelState.AddModelError("Email", "The Email field is not a valid e-mail address.");
 
             _mockUserManager.Setup(x => x.CreateAsync(It.IsAny<User>(), signupModel.Password))
