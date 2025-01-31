@@ -188,6 +188,42 @@ namespace FoodCartApi.Tests.Unit.Authentication
             _mockUserManager.Verify(x => x.CreateAsync(It.IsAny<User>(), It.IsAny<string>()), Times.Never);
         }
 
+        [Fact]
+        public async Task Signup_WithInvalidPassword_ReturnsBadRequest()
+        {
+            // Arrange
+            var signupModel = new SignupDto
+            {
+                UserName = "UserFour_4",
+                Email = "user.four@email.com",
+                Password = "3",
+                FirstName = "User",
+                LastName = "Four"
+            };
+
+            _controller.ModelState.AddModelError("Password", "Password must be at least 8 characters long.");
+
+            _mockUserManager.Setup(x => x.CreateAsync(It.IsAny<User>(), signupModel.Password))
+               .ReturnsAsync(IdentityResult.Success);
+
+            _mockUserManager.Setup(x => x.AddToRoleAsync(It.IsAny<User>(), "User"))
+                .ReturnsAsync(IdentityResult.Success);
+
+            // Act
+            var result = await _controller.Signup(signupModel);
+
+            // Assert
+            var actionResult = Assert.IsType<ActionResult<ApiResponse>>(result);
+            var badRequestResult = Assert.IsType<BadRequestObjectResult>(actionResult.Result);
+            var response = Assert.IsType<ApiResponse>(badRequestResult.Value);
+
+            Assert.False(response.Success);
+            Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+
+            _mockUserManager.Verify(x => x.CreateAsync(It.IsAny<User>(), It.IsAny<string>()), Times.Never);
+
+        }
+
         public void Dispose()
         {
             _context.Database.EnsureDeleted();
