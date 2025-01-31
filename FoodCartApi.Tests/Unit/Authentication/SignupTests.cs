@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Moq;
-using Moq.EntityFrameworkCore;
 using System.Net;
 
 namespace FoodCartApi.Tests.Unit.Authentication
@@ -44,8 +43,7 @@ namespace FoodCartApi.Tests.Unit.Authentication
                 null
             );
 
-            // Instead of setting up FindByNameAsync and FindByEmailAsync separately,
-            // we'll mock the Users property to handle the query directly
+            // Mock the Users property to handle the query directly
             _mockUserManager.Setup(x => x.Users)
                 .Returns(_context.Users);
 
@@ -138,7 +136,7 @@ namespace FoodCartApi.Tests.Unit.Authentication
                 LastName = "User",
                 Email = "new@example.com",
                 Password = "Test123!",
-                UserName = "testuser" // Same username as existing user
+                UserName = "testuser"
             };
 
             // Act
