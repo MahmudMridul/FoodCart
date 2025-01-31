@@ -86,6 +86,34 @@ namespace FoodCartApi.Tests.Unit.FoodItemApis
             await _context.SaveChangesAsync();
         }
 
+        [Fact]
+        public async Task GetAllFoodItems_WhenExceptionOccurs_Returns500Status()
+        {
+            // Arrange
+            // Force an exception by disposing the context but keeping the controller
+            var options = new DbContextOptionsBuilder<ApplicationContext>()
+                .UseInMemoryDatabase("TestDb2")
+                .Options;
+            var separateContext = new ApplicationContext(options);
+            var controller = new FoodItemController(separateContext);
+
+            separateContext.Dispose();
+
+            // Act
+            var result = await controller.GetAllFoodItems();
+
+            // Assert
+            var actionResult = Assert.IsType<ActionResult<ApiResponse>>(result);
+            var statusCodeResult = Assert.IsType<ObjectResult>(actionResult.Result);
+            var apiResponse = Assert.IsType<ApiResponse>(statusCodeResult.Value);
+
+            Assert.Equal((int)HttpStatusCode.InternalServerError, statusCodeResult.StatusCode);
+            Assert.Equal(HttpStatusCode.InternalServerError, apiResponse.StatusCode);
+            Assert.False(apiResponse.Success);
+            Assert.Equal("An unexpected error occurred", apiResponse.Message);
+            Assert.NotEmpty(apiResponse.Errors);
+        }
+
         public void Dispose()
         {
             _context.Database.EnsureDeleted();
