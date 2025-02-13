@@ -1,5 +1,8 @@
-﻿namespace FoodCartApi.Models
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace FoodCartApi.Models
 {
+    [Index(nameof(Name), nameof(Price))]
     public class FoodItem
     {
         public int Id { get; set; }
